@@ -1,24 +1,43 @@
-import logo from './logo.svg';
+import Tippy from '@tippyjs/react';
+import {hideAll} from 'tippy.js';
 import './App.css';
+import Cat from './cat.jpeg'
+import Dog from './dog.jpeg'
+import Elephant from './elephant.jpeg'
 
 function App() {
+  const tooltips = [
+    {
+      name: 'cat',
+      src: Cat
+    },
+    {
+      name: 'dog',
+      src: Dog
+    },
+    {
+      name: 'elephant',
+      src: Elephant
+    }
+  ]
   return (
+    <>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      {tooltips.map(({name, src}) => (
+        <Tippy
+          arrow
+          hideOnClick='toggle'
+          content={<img alt={name} src={src}/>}
+          trigger='click'
         >
-          Learn React
-        </a>
-      </header>
+          <span>{name}</span>
+        </Tippy>)
+      )}
     </div>
+    <button onClick={e=>hideAll()}>
+      hide all
+    </button>
+    </>
   );
 }
 
